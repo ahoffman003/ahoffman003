@@ -7,6 +7,18 @@
   <meta name="description" content="GIS portfolio showcasing projects in spatial analysis, web mapping, and cartography." />
 
   <style>
+    :root {
+      --bg-overlay: rgba(15, 23, 42, 0.65);
+      --card-bg: rgba(255, 255, 255, 0.97);
+      --card-shadow: 0 14px 45px rgba(15, 23, 42, 0.25);
+      --accent: #0f766e;         /* teal */
+      --accent-soft: #ccfbf1;
+      --accent-strong: #0f172a;  /* near-black slate */
+      --chip-bg: #e5e7eb;
+      --chip-text: #111827;
+      --link: #0369a1;
+    }
+
     /* Basic Reset */
     *, *::before, *::after {
       box-sizing: border-box;
@@ -14,15 +26,28 @@
       padding: 0;
     }
 
+    /* Background & Body */
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: #f3f4f6 url("Layout.jpg") center center fixed no-repeat;
+      min-height: 100vh;
+      background: #0b1120 url("Layout.jpg") center center fixed no-repeat;
       background-size: cover;
+      color: #0f172a;
+    }
+
+    /* Dark overlay over topo so content pops */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.45), var(--bg-overlay));
+      z-index: -1;
     }
 
     a {
-      color: #0066cc;
+      color: var(--link);
       text-decoration: none;
+      transition: color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
     }
 
     a:hover {
@@ -31,73 +56,181 @@
 
     /* Layout */
     header {
-      background: rgba(30, 41, 59, 0.95);
+      background: linear-gradient(135deg, #020617, #0f172a);
       color: #f9fafb;
-      padding: 2.5rem 1.5rem 3rem;
+      padding: 2.7rem 1.5rem 3.1rem;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.4);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle contour-ish lines */
+    header::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(45, 212, 191, 0.08), transparent 55%),
+        radial-gradient(circle at 80% 50%, rgba(56, 189, 248, 0.08), transparent 55%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    header-inner {
+      position: relative;
+      z-index: 1;
     }
 
     header h1 {
-      font-size: 2.2rem;
-      letter-spacing: 0.05em;
+      font-size: 2.3rem;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
+    }
+
+    .role-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .role-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
     }
 
     header p.tagline {
-      margin-top: 0.5rem;
+      margin-top: 0.9rem;
       font-size: 1rem;
-      opacity: 0.9;
+      opacity: 0.95;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     nav {
-      margin-top: 1.5rem;
+      margin-top: 1.8rem;
     }
 
     nav a {
-      margin: 0 0.75rem;
-      font-size: 0.95rem;
+      margin: 0 0.9rem;
+      font-size: 0.9rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.16em;
       opacity: 0.9;
+      position: relative;
+      padding-bottom: 0.2rem;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: #22c55e;
+      border-radius: 999px;
+      transform: translateX(-50%);
+      transition: width 0.18s ease-out;
     }
 
     nav a:hover {
       opacity: 1;
     }
 
+    nav a:hover::after {
+      width: 60%;
+    }
+
     main {
-      max-width: 1000px;
-      margin: -2rem auto 3rem;
+      max-width: 1060px;
+      margin: -2.2rem auto 3.5rem;
       padding: 0 1.5rem 3rem;
     }
 
     section {
-      background: rgba(255, 255, 255, 0.96);
-      border-radius: 12px;
-      padding: 1.75rem 1.75rem 2rem;
-      margin-top: 2rem;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
-      backdrop-filter: blur(4px);
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 1.85rem 1.85rem 2.25rem;
+      margin-top: 2.1rem;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(45, 212, 191, 0.05), transparent 60%);
+      pointer-events: none;
+    }
+
+    section-inner {
+      position: relative;
+      z-index: 1;
+      display: block;
     }
 
     section h2 {
-      font-size: 1.4rem;
-      margin-bottom: 0.75rem;
-      border-bottom: 2px solid #e5e7eb;
-      padding-bottom: 0.25rem;
+      font-size: 1.35rem;
+      margin-bottom: 0.25rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #111827;
+      letter-spacing: 0.18em;
+      color: var(--accent-strong);
+    }
+
+    .section-kicker {
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 0.25rem;
+    }
+
+    .section-underline {
+      width: 52px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #22c55e, #0ea5e9);
+      margin: 0.4rem 0 1.1rem;
     }
 
     /* About */
+    .about-content {
+      border-left: 3px solid var(--accent);
+      padding-left: 1rem;
+    }
+
     .about p {
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.8rem;
       font-size: 0.98rem;
+      line-height: 1.6;
     }
 
     /* Skills */
+    h3.subheading {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-top: 1.1rem;
+      color: #374151;
+    }
+
     .chips {
       display: flex;
       flex-wrap: wrap;
@@ -106,35 +239,87 @@
     }
 
     .chip {
-      background: #e5e7eb;
+      background: var(--chip-bg);
       border-radius: 999px;
-      padding: 0.25rem 0.75rem;
-      font-size: 0.85rem;
+      padding: 0.28rem 0.8rem;
+      font-size: 0.8rem;
       white-space: nowrap;
+      color: var(--chip-text);
+      border: 1px solid rgba(148, 163, 184, 0.5);
     }
 
-    /* PROJECT CARDS */
+    /* Projects */
+    .projects-intro {
+      font-size: 0.92rem;
+      margin-bottom: 0.8rem;
+      color: #4b5563;
+    }
+
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.25rem;
-      margin-top: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.4rem;
+      margin-top: 0.6rem;
     }
 
     .project-card {
       background: #f9fafb;
       border: 1px solid #e5e7eb;
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 1.25rem 1.25rem 1.5rem;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
       display: flex;
       flex-direction: column;
       height: 100%;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(45, 212, 191, 0.11), transparent 60%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.25);
+      border-color: rgba(56, 189, 248, 0.7);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-pill {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
     }
 
     .project-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.4rem;
+      font-size: 1.08rem;
+      margin-bottom: 0.3rem;
       color: #111827;
     }
 
@@ -143,40 +328,61 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: #6b7280;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.65rem;
     }
 
     .project-card p {
       font-size: 0.9rem;
       margin-bottom: 0.75rem;
-      line-height: 1.4;
+      line-height: 1.55;
       flex-grow: 1;
+      color: #374151;
     }
 
     .project-links {
       margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
     }
 
     .project-links a {
-      font-size: 0.88rem;
-      margin-right: 0.75rem;
-      padding: 0.3rem 0.65rem;
+      font-size: 0.84rem;
+      padding: 0.32rem 0.7rem;
+      border-radius: 999px;
       background: #e5e7eb;
-      border-radius: 6px;
+      border: 1px solid transparent;
+      text-decoration: none;
     }
 
     .project-links a:hover {
-      background: #cbd5e1;
+      background: #0f172a;
+      color: #f9fafb;
+      border-color: #0f172a;
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .project-links a.secondary {
+      background: transparent;
+      border-color: #cbd5e1;
+    }
+
+    .project-links a.secondary:hover {
+      background: #e0f2fe;
+      color: #0f172a;
+      border-color: #0ea5e9;
     }
 
     /* Resume */
     .resume a {
       display: inline-block;
-      margin-top: 0.5rem;
+      margin-top: 0.7rem;
       border-radius: 999px;
       border: 1px solid #1d4ed8;
-      padding: 0.4rem 0.9rem;
-      font-size: 0.92rem;
+      padding: 0.45rem 1rem;
+      font-size: 0.9rem;
+      background: #eff6ff;
     }
 
     .resume a:hover {
@@ -187,7 +393,7 @@
 
     /* Contact + Icon */
     .contact p {
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.75rem;
       font-size: 0.96rem;
       display: flex;
       align-items: center;
@@ -199,6 +405,7 @@
       height: 20px;
       fill: #0A66C2;
       vertical-align: middle;
+      flex-shrink: 0;
     }
 
     footer {
@@ -206,146 +413,227 @@
       font-size: 0.8rem;
       color: #e5e7eb;
       padding: 1.5rem 1rem 2rem;
-      background: rgba(15, 23, 42, 0.9);
-      box-shadow: 0 -4px 12px rgba(15, 23, 42, 0.4);
+      background: rgba(15, 23, 42, 0.97);
+      box-shadow: 0 -4px 12px rgba(15, 23, 42, 0.6);
+    }
+
+    .back-to-top {
+      display: inline-block;
+      margin-top: 0.4rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9ca3af;
+    }
+
+    .back-to-top:hover {
+      color: #e5e7eb;
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.9rem;
+      }
+      header p.tagline {
+        font-size: 0.92rem;
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.3rem 0.7rem;
+      }
+      nav a {
+        margin: 0.15rem 0.35rem;
+      }
+      section {
+        padding: 1.5rem 1.35rem 2rem;
+      }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Amanda Hoffman</h1>
-    <p class="tagline">GIS Analyst &amp; Graduate Student | Spatial Analysis • Web Mapping • Cartography</p>
+    <header-inner>
+      <h1>Amanda Hoffman</h1>
+      <div class="role-pill">
+        <span class="role-dot"></span>
+        GIS Analyst · MGIS Graduate Student
+      </div>
+      <p class="tagline">
+        Environmental and infrastructure-focused GIS, blending spatial analysis, web mapping, and thoughtful cartography to support clearer decisions.
+      </p>
 
-    <nav>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#resume">Resume</a>
-      <a href="#contact">Contact</a>
-    </nav>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#resume">Resume</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header-inner>
   </header>
 
   <main>
     <!-- ABOUT -->
     <section id="about" class="about">
-      <h2>About</h2>
-      <p>
-        I am a GIS Analyst and MGIS graduate student who loves solving real-world problems with spatial data. 
-        I’m especially drawn to projects that blend environmental insight, spatial data science, and clear, intuitive cartography. 
-        Across all my work, I’m driven by clear communication, thoughtful cartography, and building tools that help people understand 
-        and make decisions about the landscapes around them.
-      </p>
-      <p>
-        I currently work as a GIS Analyst at Apex Engineering Group supporting municipal infrastructure projects. My work includes water and sewer mapping, 
-        Survey123 design, Experience Builder tools, and asset management workflows that help cities use spatial data more effectively.
-      </p>
+      <section-inner>
+        <div class="section-kicker">Introduction</div>
+        <h2>About</h2>
+        <div class="section-underline"></div>
+
+        <div class="about-content">
+          <p>
+            I am a GIS Analyst and MGIS graduate student who loves solving real-world problems with spatial data. 
+            I’m especially drawn to projects that blend environmental insight, spatial data science, and clear, intuitive cartography. 
+            Across all my work, I’m driven by clear communication, thoughtful design, and building tools that help people understand 
+            and make decisions about the landscapes around them.
+          </p>
+          <p>
+            I currently work as a GIS Analyst at Apex Engineering Group supporting municipal infrastructure projects. My work includes water and sewer mapping, 
+            Survey123 design, Experience Builder tools, and asset management workflows that help cities leverage spatial data in their day-to-day operations.
+          </p>
+        </div>
+      </section-inner>
     </section>
 
     <!-- SKILLS -->
     <section id="skills">
-      <h2>Skills &amp; Tools</h2>
+      <section-inner>
+        <div class="section-kicker">Core Capabilities</div>
+        <h2>Skills &amp; Tools</h2>
+        <div class="section-underline"></div>
 
-      <h3>GIS &amp; Spatial Analysis</h3>
-      <div class="chips">
-        <span class="chip">ArcGIS Pro</span>
-        <span class="chip">ArcGIS Online</span>
-        <span class="chip">Experience Builder</span>
-        <span class="chip">Survey123</span>
-        <span class="chip">QGIS</span>
-        <span class="chip">Spatial Analysis &amp; Modeling</span>
-        <span class="chip">Raster Analysis</span>
-        <span class="chip">Network Analysis</span>
-      </div>
+        <h3 class="subheading">GIS &amp; Spatial Analysis</h3>
+        <div class="chips">
+          <span class="chip">ArcGIS Pro</span>
+          <span class="chip">ArcGIS Online</span>
+          <span class="chip">Experience Builder</span>
+          <span class="chip">Survey123</span>
+          <span class="chip">QGIS</span>
+          <span class="chip">Spatial Analysis &amp; Modeling</span>
+          <span class="chip">Raster Analysis</span>
+          <span class="chip">Network Analysis</span>
+        </div>
 
-      <h3 style="margin-top: 1.25rem;">Programming &amp; Data</h3>
-      <div class="chips">
-        <span class="chip">Python (ArcPy, Jupyter)</span>
-        <span class="chip">SQL</span>
-        <span class="chip">Git &amp; GitHub</span>
-        <span class="chip">Pandas &amp; Geopandas</span>
-      </div>
+        <h3 class="subheading">Programming &amp; Data</h3>
+        <div class="chips">
+          <span class="chip">Python (ArcPy, Jupyter)</span>
+          <span class="chip">SQL</span>
+          <span class="chip">Pandas &amp; GeoPandas</span>
+          <span class="chip">Git &amp; GitHub</span>
+        </div>
 
-      <h3 style="margin-top: 1.25rem;">Cartography &amp; Communication</h3>
-      <div class="chips">
-        <span class="chip">Cartographic Design</span>
-        <span class="chip">Web Maps &amp; Dashboards</span>
-        <span class="chip">StoryMaps</span>
-        <span class="chip">Technical Writing &amp; Documentation</span>
-      </div>
+        <h3 class="subheading">Cartography &amp; Communication</h3>
+        <div class="chips">
+          <span class="chip">Cartographic Design</span>
+          <span class="chip">Web Maps &amp; Dashboards</span>
+          <span class="chip">StoryMaps</span>
+          <span class="chip">Technical Writing &amp; Documentation</span>
+        </div>
+      </section-inner>
     </section>
 
     <!-- PROJECTS -->
     <section id="projects">
-      <h2>Selected Projects</h2>
-      <p style="font-size:0.92rem; margin-bottom:0.75rem;">
-        Click through to view the live web maps and GitHub repositories.
-      </p>
+      <section-inner>
+        <div class="section-kicker">Selected Work</div>
+        <h2>Projects</h2>
+        <div class="section-underline"></div>
 
-      <div class="projects-grid">
+        <p class="projects-intro">
+          A sample of recent work focused on environmental suitability analysis, long-distance trail planning, and interactive web mapping.
+        </p>
 
-        <!-- Sweet Sorghum -->
-        <article class="project-card">
-          <h3>Sweet Sorghum Suitability Web App</h3>
-          <div class="project-meta">Research • 2025</div>
-          <p>
-            This project identifies high-potential regions for sweet sorghum production using Daymet climate data, soil characteristics,
-            and land cover. I built a spatial suitability model, transformed the outputs into interactive layers, and designed a web app 
-            that allows users to explore climate-driven suitability patterns across Minnesota and the Midwest.
-          </p>
-          <div class="project-links">
-            <a href="https://umn.maps.arcgis.com/apps/mapviewer/index.html?webmap=3559938ad0e34adeb9d9551022e6c84f" target="_blank">View App</a>
-            <a href="https://github.com/ahoffman003/Sweet-Sorghum-Analysis.git" target="_blank">GitHub</a>
-          </div>
-        </article>
+        <div class="projects-grid">
 
-        <!-- NCT Trail Project -->
-        <article class="project-card">
-          <h3>North Country Trail Planning Map</h3>
-          <div class="project-meta">Client Project • 2025</div>
-          <p>
-            Developed an interactive planning map for the North Country Trail Association to evaluate trail alignment options, land ownership,
-            easement needs, and environmental constraints. This tool supports route refinement, internal coordination, and stakeholder 
-            discussions by consolidating authoritative data into a clear, easy-to-use web interface.
-          </p>
-          <div class="project-links">
-            <a href="https://umn.maps.arcgis.com/apps/mapviewer/index.html?webmap=32dca35e3a074c2a823a45491df8cbeb" target="_blank">View Map</a>
-          </div>
-        </article>
+          <!-- Sweet Sorghum -->
+          <article class="project-card">
+            <div class="project-pill">
+              <span class="project-pill-dot"></span>
+              Environmental Modeling
+            </div>
+            <h3>Sweet Sorghum Suitability Web App</h3>
+            <div class="project-meta">Research • 2025</div>
+            <p>
+              This project identifies high-potential regions for sweet sorghum production using Daymet climate data, soil characteristics,
+              and land cover. I built a spatial suitability model, processed large climate rasters, and transformed the outputs into
+              interactive layers. The ArcGIS Online web app allows users to explore climate-driven suitability patterns across Minnesota
+              and the broader Midwest to support long-term bioenergy planning.
+            </p>
+            <div class="project-links">
+              <a href="https://umn.maps.arcgis.com/apps/mapviewer/index.html?webmap=3559938ad0e34adeb9d9551022e6c84f" target="_blank">View Web App</a>
+              <a href="https://github.com/ahoffman003/Sweet-Sorghum-Analysis.git" target="_blank" class="secondary">View on GitHub</a>
+            </div>
+          </article>
 
-      </div>
+          <!-- NCT Trail Project -->
+          <article class="project-card">
+            <div class="project-pill">
+              <span class="project-pill-dot"></span>
+              Trail Planning &amp; Access
+            </div>
+            <h3>North Country Trail Planning Map</h3>
+            <div class="project-meta">Client Project • 2025</div>
+            <p>
+              For the North Country Trail Association, I helped design a planning map that consolidates proposed trail alignments, land ownership,
+              easements, and environmental constraints into a single interactive view. The map supports corridor analysis, internal coordination,
+              and stakeholder conversations by making complex spatial data easier to understand and reference during route refinement discussions.
+            </p>
+            <div class="project-links">
+              <a href="https://umn.maps.arcgis.com/apps/mapviewer/index.html?webmap=32dca35e3a074c2a823a45491df8cbeb" target="_blank">Open Planning Map</a>
+            </div>
+          </article>
+
+        </div>
+      </section-inner>
     </section>
 
     <!-- RESUME -->
     <section id="resume" class="resume">
-      <h2>Resume</h2>
-      <p>Download my current resume for more detail on my experience, education, and skills.</p>
-      <a href="Hoffman_Resume2025.pdf" target="_blank">Download Resume (PDF)</a>
+      <section-inner>
+        <div class="section-kicker">Experience Snapshot</div>
+        <h2>Resume</h2>
+        <div class="section-underline"></div>
+
+        <p>
+          For a full overview of my professional experience, education, and technical skills, you can download my current resume.
+        </p>
+        <a href="Hoffman_Resume2025.pdf" target="_blank">Download Resume (PDF)</a>
+      </section-inner>
     </section>
 
     <!-- CONTACT -->
     <section id="contact" class="contact">
-      <h2>Contact</h2>
+      <section-inner>
+        <div class="section-kicker">Let’s Connect</div>
+        <h2>Contact</h2>
+        <div class="section-underline"></div>
 
-      <p>
-        Email:
-        <a href="mailto:ajd.hoffman@gmail.com">ajd.hoffman@gmail.com</a>
-      </p>
+        <p>
+          Email:
+          <a href="mailto:ajd.hoffman@gmail.com">ajd.hoffman@gmail.com</a>
+        </p>
 
-      <p>
-        <svg class="linkedin-icon" viewBox="0 0 24 24">
-          <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.54 8.98h3.93V24H.54zM8.48 8.98h3.77v2.05h.05c.53-1 1.83-2.05 3.76-2.05 4.02 0 4.76 2.65 4.76 6.1V24h-3.93v-7.62c0-1.82-.03-4.16-2.53-4.16-2.54 0-2.93 1.98-2.93 4.03V24H8.48z"/>
-        </svg>
-        <a href="https://www.linkedin.com/in/amanda-hoffman-7b1b8215b/" target="_blank">
-          LinkedIn Profile
-        </a>
-      </p>
+        <p>
+          <svg class="linkedin-icon" viewBox="0 0 24 24">
+            <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.54 8.98h3.93V24H.54zM8.48 8.98h3.77v2.05h.05c.53-1 1.83-2.05 3.76-2.05 4.02 0 4.76 2.65 4.76 6.1V24h-3.93v-7.62c0-1.82-.03-4.16-2.53-4.16-2.54 0-2.93 1.98-2.93 4.03V24H8.48z"/>
+          </svg>
+          <a href="https://www.linkedin.com/in/amanda-hoffman-7b1b8215b/" target="_blank">
+            View my LinkedIn profile
+          </a>
+        </p>
+      </section-inner>
     </section>
 
   </main>
 
   <footer>
     &copy; <span id="year"></span> Amanda Hoffman • GIS Portfolio
+    <br />
+    <a href="#top" class="back-to-top">Back to top</a>
   </footer>
 
   <script>
