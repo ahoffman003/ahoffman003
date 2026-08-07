@@ -443,6 +443,154 @@ main > section{ max-width: var(--max); margin: 0 auto; padding: 100px 40px; }
   .project-grid .index-card, .project-grid .card-media--sm, .index-card--featured{ transition: none; }
 }
 
+
+
+/* ==========================================================================
+   HYBRID DARK TOPO / PAPER PANEL THEME
+   ========================================================================== */
+:root{
+  --page-bg: #26352B;
+  --page-bg-deep: #17231C;
+  --paper: #F3EEE1;
+  --paper-deep: #EAE2CE;
+  --ink: #2B2A22;
+  --ink-soft: #5B594C;
+  --forest: #3B5240;
+  --forest-light: #78937A;
+  --rust: #A85A32;
+  --slate: #58727D;
+  --gold: #C9A15C;
+  --line: rgba(43,42,34,0.16);
+  --radius: 8px;
+  --radius-lg: 18px;
+}
+
+body{
+  background:
+    radial-gradient(circle at 18% 8%, rgba(120,147,122,.18), transparent 34%),
+    linear-gradient(rgba(23,35,28,.82), rgba(23,35,28,.94)),
+    var(--page-bg);
+  background-attachment: fixed;
+}
+
+.page-contour{ z-index:-1; }
+.page-contour path{ stroke: var(--paper-deep); opacity:.075; }
+.page-contour path:nth-child(5n){ stroke: #D68A5E; opacity:.075; }
+.page-contour path:nth-child(7n){ stroke: #91AAA2; opacity:.075; }
+
+.site-header{
+  background: rgba(23,35,28,.90);
+  border-bottom: 1px solid rgba(243,238,225,.12);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(8,14,10,.16);
+}
+.wordmark{ color: var(--paper); }
+.site-nav a{ color: rgba(243,238,225,.74); }
+.site-nav a:hover{ color:#D68A5E; }
+.nav-num{ color:#D68A5E; }
+.header-status{ color:rgba(243,238,225,.55); }
+
+.hero{
+  min-height: 88vh;
+  background:
+    radial-gradient(circle at 76% 24%, rgba(120,147,122,.22), transparent 36%),
+    radial-gradient(circle at 18% 70%, rgba(168,90,50,.12), transparent 28%),
+    linear-gradient(145deg, #2B3D31 0%, #17231C 72%);
+  color: var(--paper);
+  border-bottom: 1px solid rgba(243,238,225,.12);
+}
+.hero .contour-field path{ stroke:#EAE2CE; opacity:.13; }
+.hero .contour-field path:nth-child(5n){ stroke:#D68A5E; opacity:.18; }
+.hero .contour-field path:nth-child(7n){ stroke:#86A7A0; opacity:.15; }
+.hero-name{ color:var(--paper); }
+.hero .coord-eyebrow{ color:rgba(243,238,225,.62); }
+.hero .hero-bio{ color:rgba(243,238,225,.82); }
+.hero .hero-tag{ color:#D68A5E; }
+.hero .hero-bio-wrap{ border-color:#D68A5E; }
+.hero .role-pill{
+  color:var(--paper);
+  border-color:rgba(243,238,225,.22);
+  background:rgba(243,238,225,.07);
+}
+.hero .btn-primary{ background:var(--paper); color:var(--page-bg-deep); border-color:var(--paper); }
+.hero .btn-primary:hover{ background:#D68A5E; color:#fff; border-color:#D68A5E; }
+.hero .btn-ghost{ color:var(--paper); border-color:rgba(243,238,225,.62); }
+.hero .btn-ghost:hover{ background:var(--paper); color:var(--page-bg-deep); }
+.hero-portrait{ width:280px; }
+.hero-portrait::before{ border-color:rgba(234,226,206,.45); }
+.scale-seg{ background:transparent; border-color:rgba(243,238,225,.72); }
+.scale-seg.dark{ background:var(--paper); }
+.scale-label{ color:rgba(243,238,225,.60); }
+
+main > section{ max-width:var(--max); }
+.panel{
+  background:rgba(243,238,225,.97);
+  border:1px solid rgba(234,226,206,.72);
+  border-radius:var(--radius-lg);
+  box-shadow:0 24px 60px rgba(10,20,14,.28), 0 2px 8px rgba(10,20,14,.12);
+  backdrop-filter:blur(4px);
+  padding:64px 48px;
+  margin-top:48px;
+  margin-bottom:48px;
+}
+
+.projects{ padding-top:64px; }
+.projects-intro-wrap{ margin:-6px 0 28px; max-width:720px; }
+.projects-heading{ font-size:clamp(30px,4vw,44px); margin-bottom:8px; }
+.projects-intro{ color:var(--ink-soft); font-size:15px; }
+.project-grid{ grid-template-columns:repeat(3,1fr); gap:24px; }
+.project-grid .index-card{
+  background:rgba(250,247,239,.94);
+  border-radius:14px;
+  box-shadow:0 10px 24px rgba(43,42,34,.08);
+}
+.project-grid .index-card:hover{ box-shadow:0 18px 36px rgba(43,42,34,.16); }
+.card-media--sm{ min-height:220px; }
+.index-card--more{ background:rgba(243,238,225,.30); }
+
+.resume-group-heading{
+  font-family:var(--mono);
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--ink-soft);
+  margin:44px 0 18px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--line);
+}
+.resume-group-heading:first-of-type{ margin-top:8px; }
+.resume-entry{ position:relative; }
+.resume-entry::before{
+  content:"";
+  position:absolute;
+  left:-6px; top:8px;
+  width:10px; height:10px;
+  border-radius:50%;
+  background:var(--paper);
+  border:2px solid var(--rust);
+}
+
+.site-footer{
+  color:rgba(243,238,225,.58);
+  border-top:1px solid rgba(243,238,225,.12);
+  background:rgba(23,35,28,.62);
+}
+
+@media (max-width:860px){
+  .hero{ min-height:auto; padding:72px 0; }
+  .hero-portrait{ width:180px; }
+  .project-grid{ grid-template-columns:1fr 1fr; }
+}
+@media (max-width:600px){
+  .site-header{ grid-template-columns:auto 1fr; padding:12px 16px; gap:12px; }
+  .site-nav{ gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+  .site-nav a{ font-size:11px; letter-spacing:.04em; }
+  .nav-num{ display:none; }
+  .project-grid{ grid-template-columns:1fr; }
+  .panel{ padding:34px 20px; }
+  .hero-inner{ padding:0 22px; }
+}
+
 </style>
 </head>
 <body>
@@ -516,15 +664,13 @@ main > section{ max-width: var(--max); margin: 0 auto; padding: 100px 40px; }
     </div>
   </section>
 
-  <!-- FEATURED PROJECT (rendered from PROJECTS in projects-data.js) -->
-  <section class="featured panel" id="work">
-    <p class="section-eyebrow">Featured project</p>
-    <div id="featuredSlot"></div>
-  </section>
-
-  <!-- PROJECT GRID (rendered from PROJECTS in projects-data.js) -->
-  <section class="projects panel">
-    <p class="section-eyebrow">Projects</p>
+  <!-- PROJECT GALLERY (rendered from PROJECTS in projects-data.js) -->
+  <section class="projects panel" id="work">
+    <p class="section-eyebrow">Selected work</p>
+    <div class="projects-intro-wrap">
+      <h2 class="projects-heading">Project Gallery</h2>
+      <p class="projects-intro">Municipal infrastructure, environmental modeling, spatial analysis, cartography, and web GIS.</p>
+    </div>
     <div class="project-grid">
       <div id="projectGridItems" style="display:contents"></div>
 
@@ -666,7 +812,7 @@ main > section{ max-width: var(--max); margin: 0 auto; padding: 100px 40px; }
 
   <!-- CONTACT -->
   <section class="contact panel" id="contact">
-    <p class="section-eyebrow">Datum</p>
+    <p class="section-eyebrow">Contact</p>
     <h2 class="contact-heading">Let's map something.</h2>
     <p class="contact-sub">Open to full-time GIS and natural resources roles.</p>
     <div class="contact-grid">
@@ -688,7 +834,7 @@ main > section{ max-width: var(--max); margin: 0 auto; padding: 100px 40px; }
 </main>
 
 <footer class="site-footer">
-  <p>Amanda Hoffman &nbsp;·&nbsp; Minnesota &nbsp;·&nbsp; Datum: WGS84</p>
+  <p>&copy; <span id="year"></span> Amanda Hoffman &nbsp;·&nbsp; Minnesota </p>
 </footer>
 
 <script src="projects-data.js"></script>
@@ -696,7 +842,7 @@ main > section{ max-width: var(--max); margin: 0 auto; padding: 100px 40px; }
 // ==========================================================================
 // PROJECT RENDERING
 // Reads the PROJECTS array (defined in projects-data.js) and builds the
-// featured card + project grid. Editing projects-data.js is all that's
+// project gallery. Editing projects-data.js is all that's
 // needed to add, remove, or update a project — nothing here needs to change.
 // ==========================================================================
 
@@ -753,30 +899,6 @@ function tagsMarkup(tags, sizeClass) {
   return `<ul class="card-tags ${sizeClass}">${(tags || []).map(t => `<li>${escapeHtml(t)}</li>`).join('')}</ul>`;
 }
 
-function renderFeatured(project, seedIndex) {
-  const slot = document.getElementById('featuredSlot');
-  if (!slot || !project) return;
-
-  const metaParts = [escapeHtml(project.dateRange)];
-  if (project.location) metaParts.push(escapeHtml(project.location).toUpperCase());
-
-  slot.innerHTML = `
-    <article class="index-card index-card--featured">
-      ${cardMediaMarkup(project, seedIndex, '')}
-      <span class="card-pin" aria-hidden="true">
-        <svg viewBox="0 0 24 32" width="22" height="30"><path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 20 12 20s12-11 12-20c0-6.6-5.4-12-12-12z" fill="var(--rust)"/><circle cx="12" cy="12" r="5" fill="var(--paper)"/></svg>
-      </span>
-      <div class="card-body">
-        <p class="card-meta">${metaParts.join(' &nbsp;&middot;&nbsp; ')}</p>
-        <h3 class="card-title">${escapeHtml(project.title)}</h3>
-        <p class="card-desc">${escapeHtml(project.description)}</p>
-        ${tagsMarkup(project.tags, '')}
-        <a href="${escapeHtml(project.link)}" class="card-link" target="${project.linkTarget || '_self'}">${escapeHtml(project.linkLabel)} →</a>
-      </div>
-    </article>
-  `;
-}
-
 function renderGridCard(project, seedIndex) {
   const article = document.createElement('article');
   article.className = 'index-card';
@@ -794,15 +916,10 @@ function renderGridCard(project, seedIndex) {
 (function renderProjects() {
   if (typeof PROJECTS === 'undefined' || !Array.isArray(PROJECTS) || !PROJECTS.length) return;
 
-  const featured = PROJECTS.find(p => p.featured) || PROJECTS[0];
-  const rest = PROJECTS.filter(p => p !== featured);
-
-  renderFeatured(featured, 0);
-
   const gridContainer = document.getElementById('projectGridItems');
   if (gridContainer) {
-    rest.forEach((project, i) => {
-      gridContainer.appendChild(renderGridCard(project, i + 1));
+    PROJECTS.forEach((project, i) => {
+      gridContainer.appendChild(renderGridCard(project, i));
     });
   }
 })();
@@ -904,7 +1021,7 @@ function drawContourField(groupId, peaks) {
     { id: 'work',    label: '01 \u00b7 PROJECTS' },
     { id: 'resume',  label: '02 \u00b7 RESUME' },
     { id: 'skills',  label: '03 \u00b7 LEGEND' },
-    { id: 'contact', label: '04 \u00b7 DATUM' },
+    { id: 'contact', label: '04 \u00b7 CONTACT' },
   ];
   const labelById = Object.fromEntries(sections.map(s => [s.id, s.label]));
 
@@ -940,6 +1057,8 @@ function drawContourField(groupId, peaks) {
 
   items.forEach((el) => observer.observe(el));
 })();
+
+document.getElementById("year").textContent = new Date().getFullYear();
 
 </script>
 </body>
