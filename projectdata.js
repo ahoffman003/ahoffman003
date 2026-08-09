@@ -43,11 +43,25 @@
 const PROJECTS = [
 
   {
-    id: "sweet-sorghum",
+    id: "detroit-lakes-portal",
     featured: true,
+    title: "GIS Web Portal, City of Detroit Lakes",
+    dateRange: "2025 – Present",
+    location: "Detroit Lakes, Minnesota",
+    description: "Led the development and deployment of a comprehensive GIS web portal for the City of Detroit Lakes. Migrated and cleaned the city's water and sanitary utility data from a non-Esri platform into ArcGIS Online, ensuring data integrity through the transition, and built new feature layers from scratch to support future asset management workflows across Public Utilities and Public Works. Configured a multi-page ArcGIS Experience Builder application organized around the city's departmental structure, with live infrastructure dashboards and group-based permission schemas controlling editing access by department. Developed training materials and led staff training sessions for a mixed technical and non-technical city audience, giving staff across departments a centralized, live platform for authoritative infrastructure data in place of static reports.",
+    tags: ["Experience Builder", "ArcGIS Online", "Data Migration", "Staff Training"],
+    image: "dl-portal.jpg",
+    link: "#contact",
+    linkLabel: "Ask about this project",
+    linkTarget: "_self"
+  },
+
+  {
+    id: "sweet-sorghum",
+    featured: false,
     title: "Sweet Sorghum Land Suitability & Feasibility Study",
     dateRange: "2025",
-    location: "Northwest Minnesota",
+    location: "",
     description: "A regional GIS suitability model and DSSAT crop simulation study identifying 724,000 acres of marginal Northwest Minnesota farmland viable for sweet sorghum biofuel production, combining USDA Cropland Data Layer, SSURGO soils, and land capability data with automated Python/ArcPy workflows. Model output validated within 4% of independent field trial data.",
     tags: ["ArcGIS Pro", "Python / ArcPy", "DSSAT", "SSURGO"],
     image: "",
@@ -57,13 +71,41 @@ const PROJECTS = [
   },
 
   {
-    id: "detroit-lakes-stormwater",
+    id: "lead-service-line",
     featured: false,
-    title: "Stormwater & BMP Compliance, City of Detroit Lakes",
+    title: "Lead Service Line Inventory & Replacement (15 MN Cities)",
     dateRange: "2025 – Present",
     location: "",
-    description: "GIS administration of a Survey123/Field Maps workflow tracking BMP inspections, illicit discharge reporting, and citywide impervious surface classification.",
-    tags: ["Survey123", "Field Maps"],
+    description: "GIS strategy for a 15-city Lead Service Line inventory and replacement program, connecting Survey123 outreach, Power Automate, DocuSign, and Field Maps into one workflow supporting Lead and Copper Rule compliance. Program-wide dashboards track status across all 15 cities in real time — one dashboard alone tracks 962 total services, with live counts for assessments, easements, and replacements completed.",
+    tags: ["ArcGIS Online", "Power Automate", "Survey123"],
+    image: "lsl-dashboard.png",
+    link: "#contact",
+    linkLabel: "Ask about this project",
+    linkTarget: "_self"
+  },
+
+  {
+    id: "construction-field-viewer",
+    featured: false,
+    title: "Construction Inspection & Reporting Viewer",
+    dateRange: "2026 – Pilot",
+    location: "",
+    description: "Built an ArcGIS Experience Builder app pairing Survey123 daily logs, observation forms, and field testing forms with automated PDF report generation, currently piloting for rollout to all field construction staff. Reports and survey submissions are accessible in real time from the field or the office, so project managers can see construction observations as they happen rather than waiting on end-of-day paperwork.",
+    tags: ["Experience Builder", "Survey123", "Report Automation"],
+    image: "construction-viewer.jpg",
+    link: "#contact",
+    linkLabel: "Ask about this project",
+    linkTarget: "_self"
+  },
+
+  {
+    id: "bmp-inspection-program",
+    featured: false,
+    title: "BMP, Inlet/Outlet & Illicit Discharge Inspection Program",
+    dateRange: "2025 – Present",
+    location: "",
+    description: "Designed a Survey123 and Survey123 Connect inspection workflow for the City of Detroit Lakes combining stormwater BMP inspections, storm inlet and outlet inspections, and illicit discharge reporting into a single connected system, supporting the city's stormwater compliance program.",
+    tags: ["Survey123", "Survey123 Connect", "Stormwater Compliance"],
     image: "",
     link: "#contact",
     linkLabel: "Ask about this project",
@@ -71,13 +113,13 @@ const PROJECTS = [
   },
 
   {
-    id: "lead-service-line",
+    id: "detroit-lakes-impervious",
     featured: false,
-    title: "Lead Service Line Inventory & Replacement (15 MN Cities)",
-    dateRange: "2025 – Present",
+    title: "Citywide Commercial Impervious Surface Analysis, Detroit Lakes",
+    dateRange: "2025",
     location: "",
-    description: "GIS strategy connecting Survey123 outreach, Power Automate, DocuSign, and Field Maps into one workflow supporting Lead and Copper Rule compliance.",
-    tags: ["ArcGIS Online", "Power Automate"],
+    description: "Conducted a citywide commercial impervious surface classification analysis for the City of Detroit Lakes, informing proposed changes to the city's stormwater utility assessment structure.",
+    tags: ["Land Cover Classification", "ArcGIS Pro"],
     image: "",
     link: "#contact",
     linkLabel: "Ask about this project",
@@ -124,6 +166,59 @@ const PROJECTS = [
     link: "#contact",
     linkLabel: "Ask about this project",
     linkTarget: "_self"
+  },
+
+];
+
+/* ==========================================================================
+   CARTOGRAPHY EXAMPLES
+   ==========================================================================
+   A lighter-weight gallery for map layout / design work — pieces where you
+   produced the cartography on data or analysis someone else built (existing
+   datasets, another team's design, publicly available data). These render
+   as a simple image + caption grid, separate from the full Projects section.
+
+   FIELD GUIDE
+   - title     Short map title.
+   - caption   One sentence: what it is and your role on it.
+   - image     Filename in images/cartography/.
+   ========================================================================== */
+
+const CARTOGRAPHY = [
+
+  {
+    id: "foster-county-hydrography",
+    title: "Foster County, ND — General Hydrography Map",
+    caption: "Cartography for Foster County, a client of Apex's Water group, built from publicly available hydrographic data.",
+    image: "foster-county-hydrography.jpg"
+  },
+
+  {
+    id: "csah10-corcoran",
+    title: "CSAH 10 Roundabout Corridor, City of Corcoran",
+    caption: "Cartography for an RFP exhibit showing proposed roundabout design and downtown land use context (roadway design by Apex engineering staff).",
+    image: "csah10-corcoran.jpg"
+  },
+
+  {
+    id: "park-rapids-utility",
+    title: "Park Rapids Utility Network Map",
+    caption: "Cartographic production of the city's water, sanitary, and storm utility network from existing GIS data.",
+    image: "park-rapids-utility.jpg"
+  },
+
+  {
+    id: "crookston-wards",
+    title: "City of Crookston Ward Map",
+    caption: "Map created for a public survey to Crookston residents on municipal energy use.",
+    image: "crookston-wards.jpg"
+  },
+
+  {
+    id: "cover-crops-nw-mn",
+    title: "Cover Crop Adoption in Northwest Minnesota",
+    caption: "County-level cartography of cover crop adoption and mineral-associated organic carbon loss, built from USDA NASS, MDA, and BWSR data.",
+    image: "cover-crops-nw-mn.jpg"
   },
 
 ];
