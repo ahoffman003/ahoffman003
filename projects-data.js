@@ -65,9 +65,9 @@ const PROJECTS = [
     description: "A regional GIS suitability model and DSSAT crop simulation study identifying 724,000 acres of marginal Northwest Minnesota farmland viable for sweet sorghum biofuel production, combining USDA Cropland Data Layer, SSURGO soils, and land capability data with automated Python/ArcPy workflows. Model output validated within 4% of independent field trial data.",
     tags: ["ArcGIS Pro", "Python / ArcPy", "DSSAT", "SSURGO"],
     image: "",
-    link: "https://umn.maps.arcgis.com/apps/mapviewer/index.html?webmap=3559938ad0e34adeb9d9551022e6c84f",
-    linkLabel: "View the web app",
-    linkTarget: "_blank"
+    link: "#contact",
+    linkLabel: "Ask about this project",
+    linkTarget: "_self"
   },
 
   {
@@ -190,28 +190,28 @@ const CARTOGRAPHY = [
     id: "foster-county-hydrography",
     title: "Foster County, ND — General Hydrography Map",
     caption: "Cartography for Foster County, a client of Apex's Water group, built from publicly available hydrographic data.",
-    image: "foster-county-hydrography.jpg"
+    image: "foster-county-hydrography_1.jpg"
   },
 
   {
     id: "csah10-corcoran",
     title: "CSAH 10 Roundabout Corridor, City of Corcoran",
     caption: "Cartography for an RFP exhibit showing proposed roundabout design and downtown land use context (roadway design by Apex engineering staff).",
-    image: "csah10-corcoran.jpg"
+    image: "csah10-corcoran_1.jpg"
   },
 
   {
     id: "park-rapids-utility",
     title: "Park Rapids Utility Network Map",
     caption: "Cartographic production of the city's water, sanitary, and storm utility network from existing GIS data.",
-    image: "park-rapids-utility.jpg"
+    image: "park-rapids-utility_1.jpg"
   },
 
   {
     id: "crookston-wards",
     title: "City of Crookston Ward Map",
     caption: "Map created for a public survey to Crookston residents on municipal energy use.",
-    image: "crookston-wards.jpg"
+    image: "crookston-wards_1.jpg"
   },
 
   {
