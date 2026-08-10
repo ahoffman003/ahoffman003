@@ -274,6 +274,7 @@ main > section{ max-width: var(--max); margin: 0 auto; padding: 100px 40px; }
 .project-grid .index-card{
   padding: 0 0 22px; display:flex; flex-direction:column; gap:8px;
   overflow: hidden;
+  cursor: pointer;
   transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
 .project-grid .index-card:hover{
@@ -283,20 +284,46 @@ main > section{ max-width: var(--max); margin: 0 auto; padding: 100px 40px; }
 }
 .project-grid .card-media--sm{ transition: transform .4s ease; }
 .project-grid .index-card:hover .card-media--sm{ transform: scale(1.06); }
-.project-grid .card-meta{ padding: 16px 20px 0; }
 .card-title-sm{ font-size: 18px; padding: 0 20px; line-height:1.25; }
-.card-desc-sm{ font-size: 13.5px; color: var(--ink-soft); padding: 0 20px; }
 .card-tags-sm{ display:flex; flex-wrap:wrap; gap:6px; padding: 4px 20px 0; }
 .card-tags-sm li{
   font-family: var(--mono); font-size: 10.5px; border:1px solid var(--line);
   padding: 4px 9px; border-radius: 999px; color: var(--forest);
 }
+
+/* Expand-on-click: meta, description, and link are collapsed by default and
+   only revealed when the card is expanded, so the grid stays compact until
+   someone wants more detail. */
+.card-expand-hint{
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--rust); padding: 6px 20px 0; opacity: 0.85;
+}
+.project-grid .card-meta{
+  padding: 0 20px; max-height: 0; opacity: 0; overflow: hidden;
+  transition: max-height .35s ease, opacity .3s ease, padding-top .35s ease;
+}
+.card-desc-sm{
+  font-size: 13.5px; color: var(--ink-soft); padding: 0 20px;
+  max-height: 0; opacity: 0; overflow: hidden;
+  transition: max-height .4s ease, opacity .3s ease, padding-top .3s ease;
+}
 .card-link-sm{
   font-family: var(--mono); font-size: 12px; color: var(--rust);
-  padding: 2px 20px 0; margin-top: auto; display:inline-flex; align-items:center; gap:4px;
+  padding: 0 20px; margin-top: 0; display:inline-flex; align-items:center; gap:4px;
   align-self:flex-start;
+  max-height: 0; opacity: 0; overflow: hidden;
+  transition: max-height .3s ease, opacity .3s ease, padding-top .3s ease, margin-top .3s ease;
 }
 .card-link-sm:hover{ text-decoration: underline; }
+.project-grid .index-card.is-expanded .card-meta{
+  max-height: 36px; opacity: 1; padding-top: 16px;
+}
+.project-grid .index-card.is-expanded .card-desc-sm{
+  max-height: 260px; opacity: 1; padding-top: 6px;
+}
+.project-grid .index-card.is-expanded .card-link-sm{
+  max-height: 30px; opacity: 1; padding-top: 4px; margin-top: 4px;
+}
 .index-card--more{
   display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:8px;
   padding: 30px; background: transparent; border-style:dashed;
@@ -305,28 +332,55 @@ main > section{ max-width: var(--max); margin: 0 auto; padding: 100px 40px; }
 .more-sub{ font-size: 13.5px; color: var(--ink-soft); margin-bottom: 10px; }
 
 /* ==========================================================================
-   CARTOGRAPHY
+   CARTOGRAPHY (auto-playing slideshow)
    ========================================================================== */
 .cartography-intro{ color: var(--ink-soft); font-size: 15px; max-width: 640px; margin-bottom: 30px; }
-.cartography-grid{
-  display:grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+.slideshow{ position: relative; }
+.slideshow-viewport{
+  overflow: hidden; border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
 }
-.cartography-card{
-  border: 1px solid var(--line); border-radius: var(--radius-lg);
-  overflow:hidden; background: var(--paper-deep);
-  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+.slideshow-track{
+  display:flex;
+  transition: transform .5s ease;
 }
-.cartography-card:hover{
-  transform: translateY(-4px);
-  box-shadow: 0 14px 30px rgba(43,42,34,0.14);
-  border-color: var(--rust);
+.slideshow-slide{
+  flex: 0 0 100%; position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--forest);
 }
-.cartography-card img{
-  width:100%; aspect-ratio: 4 / 3; object-fit: cover; display:block;
+.slideshow-slide img{
+  width:100%; height:100%; object-fit: cover; display:block;
 }
-.cartography-card-body{ padding: 16px 18px 20px; }
-.cartography-card h4{ font-size: 15.5px; line-height:1.3; margin-bottom: 6px; }
-.cartography-card p{ font-size: 13px; color: var(--ink-soft); line-height:1.5; }
+.slideshow-caption{
+  position:absolute; left:0; right:0; bottom:0;
+  padding: 22px 26px;
+  background: linear-gradient(0deg, rgba(20,20,15,0.78), rgba(20,20,15,0.0));
+  color: #F3EEE1;
+}
+.slideshow-caption h4{ font-size: 17px; line-height:1.3; margin-bottom: 4px; }
+.slideshow-caption p{ font-size: 13px; line-height:1.5; color: rgba(243,238,225,0.85); }
+.slideshow-arrow{
+  position:absolute; top:50%; transform: translateY(-50%);
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--paper);
+  font-size: 22px; line-height:1; color: var(--ink);
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  box-shadow: 0 8px 18px rgba(43,42,34,0.18);
+  transition: background .15s ease, color .15s ease, transform .15s ease;
+}
+.slideshow-arrow:hover{ background: var(--rust); color:#fff; }
+.slideshow-arrow.prev{ left: -18px; }
+.slideshow-arrow.next{ right: -18px; }
+.slideshow-dots{
+  display:flex; justify-content:center; gap: 9px; margin-top: 18px;
+}
+.slideshow-dot{
+  width: 9px; height: 9px; border-radius: 50%;
+  border: 1px solid var(--rust); background: transparent;
+  padding:0; cursor:pointer; transition: background .15s ease, transform .15s ease;
+}
+.slideshow-dot.is-active{ background: var(--rust); transform: scale(1.15); }
 
 /* ==========================================================================
    RESUME (scroll-reveal timeline)
@@ -439,14 +493,15 @@ main > section{ max-width: var(--max); margin: 0 auto; padding: 100px 40px; }
   .index-card--featured{ grid-template-columns: 1fr; }
   .card-body{ padding: 26px; }
   .project-grid{ grid-template-columns: 1fr 1fr; }
-  .cartography-grid{ grid-template-columns: 1fr 1fr; }
+  .slideshow-arrow{ width: 34px; height: 34px; font-size: 18px; }
+  .slideshow-arrow.prev{ left: 6px; }
+  .slideshow-arrow.next{ right: 6px; }
   .skills-grid{ grid-template-columns: 1fr 1fr; row-gap: 30px; }
   .contact-grid{ grid-template-columns: 1fr; }
   .scale-bar{ display:none; }
 }
 @media (max-width: 560px){
   .project-grid{ grid-template-columns: 1fr; }
-  .cartography-grid{ grid-template-columns: 1fr; }
   .skills-grid{ grid-template-columns: 1fr; }
   .hero-actions{ flex-direction: column; align-items: stretch; }
 }
@@ -459,6 +514,7 @@ main > section{ max-width: var(--max); margin: 0 auto; padding: 100px 40px; }
   .btn, .contact-item{ transition: none; }
   .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
   .project-grid .index-card, .project-grid .card-media--sm, .index-card--featured{ transition: none; }
+  .slideshow-track{ transition: none; }
 }
 
 
@@ -566,12 +622,14 @@ main > section{ max-width:var(--max); }
 .card-media--sm{ min-height:220px; }
 .index-card--more{ background:rgba(243,238,225,.30); }
 
-.cartography-card{
-  background:rgba(250,247,239,.94);
-  border-radius:14px;
-  box-shadow:0 10px 24px rgba(43,42,34,.08);
+.slideshow-viewport{
+  border-color: rgba(234,226,206,.5);
+  box-shadow: 0 10px 24px rgba(43,42,34,.10);
 }
-.cartography-card:hover{ box-shadow:0 18px 36px rgba(43,42,34,.16); }
+.slideshow-arrow{
+  background: rgba(250,247,239,.94);
+  box-shadow: 0 10px 24px rgba(43,42,34,.16);
+}
 
 .resume-group-heading{
   font-family:var(--mono);
@@ -605,7 +663,6 @@ main > section{ max-width:var(--max); }
   .hero{ min-height:auto; padding:72px 0; }
   .hero-portrait{ width:180px; }
   .project-grid{ grid-template-columns:1fr 1fr; }
-  .cartography-grid{ grid-template-columns:1fr 1fr; }
 }
 @media (max-width:600px){
   .site-header{ grid-template-columns:auto 1fr; padding:12px 16px; gap:12px; }
@@ -613,7 +670,6 @@ main > section{ max-width:var(--max); }
   .site-nav a{ font-size:11px; letter-spacing:.04em; }
   .nav-num{ display:none; }
   .project-grid{ grid-template-columns:1fr; }
-  .cartography-grid{ grid-template-columns:1fr; }
   .panel{ padding:34px 20px; }
   .hero-inner{ padding:0 22px; }
 }
@@ -714,7 +770,15 @@ main > section{ max-width:var(--max); }
   <section class="cartography-section panel" id="cartography">
     <p class="section-eyebrow">Cartography</p>
     <p class="cartography-intro">Map layout and design work — cartographic production on data, analysis, or designs built by others.</p>
-    <div class="cartography-grid" id="cartographyGrid"></div>
+
+    <div class="slideshow" id="cartographySlideshow">
+      <div class="slideshow-viewport">
+        <div class="slideshow-track" id="slideshowTrack"></div>
+      </div>
+      <button class="slideshow-arrow prev" aria-label="Previous slide" type="button">&#8249;</button>
+      <button class="slideshow-arrow next" aria-label="Next slide" type="button">&#8250;</button>
+      <div class="slideshow-dots" id="slideshowDots"></div>
+    </div>
   </section>
 
   <!-- RESUME -->
@@ -954,14 +1018,31 @@ function tagsMarkup(tags, sizeClass) {
 function renderGridCard(project, seedIndex) {
   const article = document.createElement('article');
   article.className = 'index-card';
+
+  // Only real, external links get shown (in the expanded state) — no
+  // generic "ask about this project" placeholder for internal/confidential work.
+  const hasRealLink = project.link && project.link !== '#contact';
+  const linkMarkup = hasRealLink
+    ? `<a href="${escapeHtml(project.link)}" class="card-link-sm" target="${project.linkTarget || '_blank'}">${escapeHtml(project.linkLabel)} \u2192</a>`
+    : '';
+
   article.innerHTML = `
     ${cardMediaMarkup(project, seedIndex, 'card-media--sm')}
-    <p class="card-meta">${escapeHtml(project.dateRange)}</p>
     <h4 class="card-title-sm">${escapeHtml(project.title)}</h4>
-    <p class="card-desc-sm">${escapeHtml(project.description)}</p>
     ${tagsMarkup(project.tags, 'card-tags-sm')}
-    <a href="${escapeHtml(project.link)}" class="card-link-sm" target="${project.linkTarget || '_self'}">${escapeHtml(project.linkLabel)} →</a>
+    <p class="card-expand-hint">+ Details</p>
+    <p class="card-meta">${escapeHtml(project.dateRange)}</p>
+    <p class="card-desc-sm">${escapeHtml(project.description)}</p>
+    ${linkMarkup}
   `;
+
+  const hint = article.querySelector('.card-expand-hint');
+  article.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return; // let real links behave normally
+    const expanded = article.classList.toggle('is-expanded');
+    if (hint) hint.textContent = expanded ? '\u2212 Close' : '+ Details';
+  });
+
   return article;
 }
 
@@ -976,24 +1057,72 @@ function renderGridCard(project, seedIndex) {
   }
 })();
 
-// Renders the CARTOGRAPHY array (defined in projects-data.js) as a simple
-// image + caption gallery, separate from the full Project Gallery cards.
+// Renders the CARTOGRAPHY array (defined in projects-data.js) as an
+// auto-playing slideshow: one slide visible at a time, advances on a timer,
+// and can also be navigated manually with the arrows or dots. Manual
+// interaction resets the autoplay timer so it doesn't fight the user.
 (function renderCartography() {
-  const grid = document.getElementById('cartographyGrid');
-  if (!grid || typeof CARTOGRAPHY === 'undefined' || !Array.isArray(CARTOGRAPHY)) return;
+  const root = document.getElementById('cartographySlideshow');
+  if (!root || typeof CARTOGRAPHY === 'undefined' || !Array.isArray(CARTOGRAPHY) || !CARTOGRAPHY.length) return;
+
+  const track = root.querySelector('#slideshowTrack');
+  const dotsWrap = root.querySelector('#slideshowDots');
+  const prevBtn = root.querySelector('.slideshow-arrow.prev');
+  const nextBtn = root.querySelector('.slideshow-arrow.next');
+
+  let index = 0;
+  let timer = null;
+  const AUTOPLAY_MS = 5000;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   CARTOGRAPHY.forEach((item) => {
-    const card = document.createElement('article');
-    card.className = 'cartography-card';
-    card.innerHTML = `
+    const slide = document.createElement('div');
+    slide.className = 'slideshow-slide';
+    slide.innerHTML = `
       <img src="images/cartography/${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" loading="lazy">
-      <div class="cartography-card-body">
+      <div class="slideshow-caption">
         <h4>${escapeHtml(item.title)}</h4>
         <p>${escapeHtml(item.caption)}</p>
       </div>
     `;
-    grid.appendChild(card);
+    track.appendChild(slide);
+
+    const dot = document.createElement('button');
+    dot.className = 'slideshow-dot';
+    dot.setAttribute('aria-label', `Go to slide: ${item.title}`);
+    dotsWrap.appendChild(dot);
   });
+
+  const dots = Array.from(dotsWrap.children);
+
+  function goTo(i) {
+    index = (i + CARTOGRAPHY.length) % CARTOGRAPHY.length;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((d, di) => d.classList.toggle('is-active', di === index));
+  }
+
+  function startAutoplay() {
+    if (reducedMotion || CARTOGRAPHY.length < 2) return;
+    stopAutoplay();
+    timer = setInterval(() => goTo(index + 1), AUTOPLAY_MS);
+  }
+  function stopAutoplay() {
+    if (timer) clearInterval(timer);
+  }
+  function restartAutoplay() {
+    stopAutoplay();
+    startAutoplay();
+  }
+
+  prevBtn.addEventListener('click', () => { goTo(index - 1); restartAutoplay(); });
+  nextBtn.addEventListener('click', () => { goTo(index + 1); restartAutoplay(); });
+  dots.forEach((d, di) => d.addEventListener('click', () => { goTo(di); restartAutoplay(); }));
+
+  root.addEventListener('mouseenter', stopAutoplay);
+  root.addEventListener('mouseleave', startAutoplay);
+
+  goTo(0);
+  startAutoplay();
 })();
 
 function drawContourField(groupId, peaks) {
