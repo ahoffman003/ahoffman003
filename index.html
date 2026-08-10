@@ -724,10 +724,9 @@ main > section{ max-width:var(--max); }
   </a>
   <nav class="site-nav">
     <a href="#work"><span class="nav-num">01</span>Work</a>
-    <a href="#cartography"><span class="nav-num">02</span>Cartography</a>
-    <a href="#resume"><span class="nav-num">03</span>Resume</a>
-    <a href="#skills"><span class="nav-num">04</span>Skills</a>
-    <a href="#contact"><span class="nav-num">05</span>Contact</a>
+    <a href="#resume"><span class="nav-num">02</span>Resume</a>
+    <a href="#skills"><span class="nav-num">03</span>Skills</a>
+    <a href="#contact"><span class="nav-num">04</span>Contact</a>
   </nav>
   <p class="header-status" id="headerStatus" aria-hidden="true">00 &middot; INTRO</p>
 </header>
@@ -785,21 +784,6 @@ main > section{ max-width:var(--max); }
     </div>
     <div class="project-grid">
       <div id="projectGridItems" style="display:contents"></div>
-    </div>
-  </section>
-
-  <!-- CARTOGRAPHY (rendered from CARTOGRAPHY in projects-data.js) -->
-  <section class="cartography-section panel" id="cartography">
-    <p class="section-eyebrow">Cartography</p>
-    <p class="cartography-intro">Map layout and design work — cartographic production on data, analysis, or designs built by others.</p>
-
-    <div class="slideshow" id="cartographySlideshow">
-      <div class="slideshow-viewport">
-        <div class="slideshow-track" id="slideshowTrack"></div>
-      </div>
-      <button class="slideshow-arrow prev" aria-label="Previous slide" type="button">&#8249;</button>
-      <button class="slideshow-arrow next" aria-label="Next slide" type="button">&#8250;</button>
-      <div class="slideshow-dots" id="slideshowDots"></div>
     </div>
   </section>
 
@@ -1281,10 +1265,9 @@ function drawContourField(groupId, peaks) {
   const sections = [
     { id: 'hero',        label: '00 \u00b7 INTRO' },
     { id: 'work',        label: '01 \u00b7 PROJECTS' },
-    { id: 'cartography', label: '02 \u00b7 CARTOGRAPHY' },
-    { id: 'resume',      label: '03 \u00b7 RESUME' },
-    { id: 'skills',      label: '04 \u00b7 LEGEND' },
-    { id: 'contact',     label: '05 \u00b7 CONTACT' },
+    { id: 'resume',      label: '02 \u00b7 RESUME' },
+    { id: 'skills',      label: '03 \u00b7 LEGEND' },
+    { id: 'contact',     label: '04 \u00b7 CONTACT' },
   ];
   const labelById = Object.fromEntries(sections.map(s => [s.id, s.label]));
 
