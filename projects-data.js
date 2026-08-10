@@ -50,7 +50,7 @@ const PROJECTS = [
     location: "Detroit Lakes, Minnesota",
     description: "Led the development and deployment of a comprehensive GIS web portal for the City of Detroit Lakes. Migrated and cleaned the city's water and sanitary utility data from a non-Esri platform into ArcGIS Online, ensuring data integrity through the transition, and built new feature layers from scratch to support future asset management workflows across Public Utilities and Public Works. Configured a multi-page ArcGIS Experience Builder application organized around the city's departmental structure, with live infrastructure dashboards and group-based permission schemas controlling editing access by department. Developed training materials and led staff training sessions for a mixed technical and non-technical city audience, giving staff across departments a centralized, live platform for authoritative infrastructure data in place of static reports.",
     tags: ["Experience Builder", "ArcGIS Online", "Data Migration", "Staff Training"],
-    image: "dl-portal.jpg",
+    image: "DL_Data Viewer.png",
     link: "#contact",
     linkLabel: "Ask about this project",
     linkTarget: "_self"
@@ -65,9 +65,9 @@ const PROJECTS = [
     description: "A regional GIS suitability model and DSSAT crop simulation study identifying 724,000 acres of marginal Northwest Minnesota farmland viable for sweet sorghum biofuel production, combining USDA Cropland Data Layer, SSURGO soils, and land capability data with automated Python/ArcPy workflows. Model output validated within 4% of independent field trial data.",
     tags: ["ArcGIS Pro", "Python / ArcPy", "DSSAT", "SSURGO"],
     image: "",
-    link: "https://umn.maps.arcgis.com/apps/mapviewer/index.html?webmap=3559938ad0e34adeb9d9551022e6c84f",
-    linkLabel: "View the web app",
-    linkTarget: "_blank"
+    link: "#contact",
+    linkLabel: "Ask about this project",
+    linkTarget: "_self"
   },
 
   {
@@ -78,7 +78,7 @@ const PROJECTS = [
     location: "",
     description: "GIS strategy for a 15-city Lead Service Line inventory and replacement program, connecting Survey123 outreach, Power Automate, DocuSign, and Field Maps into one workflow supporting Lead and Copper Rule compliance. Program-wide dashboards track status across all 15 cities in real time — one dashboard alone tracks 962 total services, with live counts for assessments, easements, and replacements completed.",
     tags: ["ArcGIS Online", "Power Automate", "Survey123"],
-    image: "lsl-dashboard.png",
+    image: "LSL Dashboard.png",
     link: "#contact",
     linkLabel: "Ask about this project",
     linkTarget: "_self"
@@ -92,7 +92,7 @@ const PROJECTS = [
     location: "",
     description: "Built an ArcGIS Experience Builder app pairing Survey123 daily logs, observation forms, and field testing forms with automated PDF report generation, currently piloting for rollout to all field construction staff. Reports and survey submissions are accessible in real time from the field or the office, so project managers can see construction observations as they happen rather than waiting on end-of-day paperwork.",
     tags: ["Experience Builder", "Survey123", "Report Automation"],
-    image: "construction-viewer.jpg",
+    image: "Construction Viewer.png",
     link: "#contact",
     linkLabel: "Ask about this project",
     linkTarget: "_self"
@@ -134,7 +134,7 @@ const PROJECTS = [
     location: "",
     description: "ArcGIS Online dashboard tracking well testing coverage and arsenic/nitrate contamination by county to guide community outreach for a free well-testing program.",
     tags: ["Dashboards", "ArcGIS Online"],
-    image: "",
+    image: "RSDP Well Aware.png",
     link: "https://umn.maps.arcgis.com/apps/dashboards/a4de536dcd7d4906995af40b0c546fe7",
     linkLabel: "View live dashboard",
     linkTarget: "_blank"
@@ -197,21 +197,21 @@ const CARTOGRAPHY = [
     id: "csah10-corcoran",
     title: "CSAH 10 Roundabout Corridor, City of Corcoran",
     caption: "Cartography for an RFP exhibit showing proposed roundabout design and downtown land use context (roadway design by Apex engineering staff).",
-    image: "csah10-corcoran.jpg"
+    image: "CSAH10_042926-compressed.pdf"
   },
 
   {
     id: "park-rapids-utility",
     title: "Park Rapids Utility Network Map",
     caption: "Cartographic production of the city's water, sanitary, and storm utility network from existing GIS data.",
-    image: "park-rapids-utility.jpg"
+    image: "Park Rapids Utility Maps_1.pdf"
   },
 
   {
     id: "crookston-wards",
     title: "City of Crookston Ward Map",
     caption: "Map created for a public survey to Crookston residents on municipal energy use.",
-    image: "crookston-wards.jpg"
+    image: "Crookstonw Wards.pdf"
   },
 
   {
